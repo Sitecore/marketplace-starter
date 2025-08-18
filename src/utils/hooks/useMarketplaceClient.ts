@@ -1,18 +1,33 @@
+// utils/hooks/useMarketplaceClient.ts
+
 import { ClientSDK } from "@sitecore-marketplace-sdk/client";
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { XMC } from "@sitecore-marketplace-sdk/xmc";
 
 export interface MarketplaceClientState {
   client: ClientSDK | null;
-  appContext: any;
   error: Error | null;
   isLoading: boolean;
   isInitialized: boolean;
 }
 
 export interface UseMarketplaceClientOptions {
+  /**
+   * Number of retry attempts when initialization fails
+   * @default 3
+   */
   retryAttempts?: number;
+
+  /**
+   * Delay between retry attempts in milliseconds
+   * @default 1000
+   */
   retryDelay?: number;
+
+  /**
+   * Whether to automatically initialize the client
+   * @default true
+   */
   autoInit?: boolean;
 }
 
@@ -25,37 +40,37 @@ const DEFAULT_OPTIONS: Required<UseMarketplaceClientOptions> = {
 let client: ClientSDK | undefined = undefined;
 
 async function getMarketplaceClient() {
-  
-if (window === window.parent) {
-    console.warn("App is not running inside an iframe. SDK will not initialize.");
+  if (client) {
+    return client;
   }
 
-  if (client) return client;
-
   const config = {
-    target: (window as any).parent,
-    modules: [XMC],
+    target: window.parent,
+     modules: [XMC],
   };
 
-  console.log("Initializing SDK with config:", config);
   client = await ClientSDK.init(config);
   return client;
 }
 
 export function useMarketplaceClient(options: UseMarketplaceClientOptions = {}) {
-  const opts = useMemo(() => ({ ...DEFAULT_OPTIONS, ...options }), [options]);
+  // Memoize the options to prevent unnecessary re-renders
+  const opts = useMemo(() => ({ ...DEFAULT_OPTIONS, ...options }), [
+    options,
+  ]);
 
   const [state, setState] = useState<MarketplaceClientState>({
     client: null,
-    appContext: null,
     error: null,
     isLoading: false,
     isInitialized: false,
   });
 
+  // Use ref to track if we're currently initializing to prevent race conditions
   const isInitializingRef = useRef(false);
 
   const initializeClient = useCallback(async (attempt = 1): Promise<void> => {
+    // Use functional state update to check current state without dependencies
     let shouldProceed = false;
     setState(prev => {
       if (prev.isLoading || prev.isInitialized || isInitializingRef.current) {
@@ -69,21 +84,14 @@ export function useMarketplaceClient(options: UseMarketplaceClientOptions = {}) 
     if (!shouldProceed) return;
 
     try {
-      const c = await getMarketplaceClient();
-      const contextRes = await c.query("application.context");
-      const appContext = contextRes.data;
-
-      console.log("SDK initialized. App context:", appContext);
-
+      const client = await getMarketplaceClient();
       setState({
-        client: c,
-        appContext,
+        client,
         error: null,
         isLoading: false,
         isInitialized: true,
       });
     } catch (error) {
-      console.error("SDK initialization failed:", error);
       if (attempt < opts.retryAttempts) {
         await new Promise(resolve => setTimeout(resolve, opts.retryDelay));
         return initializeClient(attempt + 1);
@@ -91,15 +99,14 @@ export function useMarketplaceClient(options: UseMarketplaceClientOptions = {}) 
 
       setState({
         client: null,
-        appContext: null,
-        error: error instanceof Error ? error : new Error("Failed to initialize MarketplaceClient"),
+        error: error instanceof Error ? error : new Error('Failed to initialize MarketplaceClient'),
         isLoading: false,
         isInitialized: false,
       });
     } finally {
       isInitializingRef.current = false;
     }
-  }, [opts.retryAttempts, opts.retryDelay]);
+  }, [opts.retryAttempts, opts.retryDelay]); // Removed state dependencies
 
   useEffect(() => {
     if (opts.autoInit) {
@@ -110,7 +117,6 @@ export function useMarketplaceClient(options: UseMarketplaceClientOptions = {}) 
       isInitializingRef.current = false;
       setState({
         client: null,
-        appContext: null,
         error: null,
         isLoading: false,
         isInitialized: false,
@@ -118,6 +124,7 @@ export function useMarketplaceClient(options: UseMarketplaceClientOptions = {}) 
     };
   }, [opts.autoInit, initializeClient]);
 
+  // Memoize the return value to prevent object recreation on every render
   return useMemo(() => ({
     ...state,
     initialize: initializeClient,
