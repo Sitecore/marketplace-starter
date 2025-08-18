@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { ApplicationContext, PagesContext } from "@sitecore-marketplace-sdk/client";
-import { useMarketplaceClient } from "../utils/hooks/useMarketplaceClient";
+import { useMarketplaceClient } from "@/utils/hooks/useMarketplaceClient";
 
 function App() {
   const { client, error, isInitialized } = useMarketplaceClient();
