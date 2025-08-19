@@ -41,14 +41,6 @@ function App() {
 
   return (
     <>
-      <div>
-        <p>{isInitialized}</p>
-        <p>
-          {isInitialized
-            ? "Marketplace client initialized."
-            : "Initializing Marketplace client..."}
-        </p>
-      </div>
       <h1>Sitecore Marketplace GraphQL Demo</h1>
       {isInitialized && (
         <>
