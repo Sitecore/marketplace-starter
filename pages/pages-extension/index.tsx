@@ -41,6 +41,7 @@ function App() {
 
   return (
     <>
+
       <h1>Sitecore Marketplace GraphQL Demo</h1>
       {isInitialized && (
         <>
