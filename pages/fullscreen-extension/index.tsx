@@ -7,31 +7,36 @@ function App() {
   const [appContext, setAppContext] = useState<ApplicationContext>();
   const [pagesContext, setPagesContext] = useState<PagesContext>();
 
+  // Following are the pages extension points available
+  const pageExtensionPoints = [
+    "xmc:pages:contextpanel",
+    "xmc:pages:customfield"
+  ];
+
   useEffect(() => {
     if (!error && isInitialized && client) {
       console.log("Marketplace client initialized successfully.", client);
 
-      // Query the application context:
+      // Always query the application context
       client.query("application.context")
         .then((res) => {
           console.log("Success retrieving application.context:", res.data);
           setAppContext(res.data);
+
+          if (pageExtensionPoints.includes(res.data?.extensionPoint)) {
+            client.query("pages.context", {
+              subscribe: true,
+              onSuccess: (res) => {
+                console.log("Success retrieving pages.context:", res);
+                setPagesContext(res);
+              },
+            }).catch((error) => {
+              console.error("Error retrieving pages.context:", error);
+            });
+          }
         })
         .catch((error) => {
           console.error("Error retrieving application.context:", error);
-        });
-
-      // Query the page context:
-      client.query("pages.context", {
-        //  Subscribe to page events:
-        subscribe: true,
-        onSuccess: (res) => {
-          console.log("Success retrieving pages.context:", res);
-          setPagesContext(res);
-        },
-      })
-        .catch((error) => {
-          console.error("Error retrieving pages.context:", error);
         });
 
     } else if (error) {
@@ -41,7 +46,6 @@ function App() {
 
   return (
     <>
-
       <h1>Sitecore Marketplace GraphQL Demo</h1>
       {isInitialized && (
         <>
@@ -50,15 +54,19 @@ function App() {
           <p><strong>ID:</strong> {appContext?.id ?? "N/A"}</p>
 
           <h2>Page Context</h2>
-          {pagesContext ? (
-            <ul>
-              <li><strong>Page ID:</strong> {pagesContext?.pageInfo?.id}</li>
-              <li><strong>Title:</strong> {pagesContext?.pageInfo?.name}</li>
-              <li><strong>Language:</strong> {pagesContext?.pageInfo?.language}</li>
-              <li><strong>Path:</strong> {pagesContext?.pageInfo?.path}</li>
-            </ul>
+          {pageExtensionPoints.includes(appContext?.extensionPoint) ? (
+            pagesContext ? (
+              <ul>
+                <li><strong>Page ID:</strong> {pagesContext?.pageInfo?.id}</li>
+                <li><strong>Title:</strong> {pagesContext?.pageInfo?.name}</li>
+                <li><strong>Language:</strong> {pagesContext?.pageInfo?.language}</li>
+                <li><strong>Path:</strong> {pagesContext?.pageInfo?.path}</li>
+              </ul>
+            ) : (
+              <p>No page context available yet.</p>
+            )
           ) : (
-            <p>No page context available yet.</p>
+            <p>This extension does not use page context.</p>
           )}
         </>
       )}
