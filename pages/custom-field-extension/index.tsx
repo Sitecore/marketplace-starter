@@ -1,52 +1,53 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMarketplaceClient } from "@/utils/hooks/useMarketplaceClient";
 
-interface SiteContext {
-  siteName: string;
-  siteId: string;
-}
-
 function CustomFieldExtension() {
-  const { client, error, isInitialized } = useMarketplaceClient();
-  const [siteContext, setSiteContext] = useState<SiteContext | null>(null);
+  const { client, isInitialized, error } = useMarketplaceClient();
+  const [value, setValue] = useState<string>("");
+
+  // Preset options as buttons
+  const options = ["Option A", "Option B", "Option C"];
 
   useEffect(() => {
-    if (!error && isInitialized && client) {
-      client
-        .query("site.context")
-        .then((res) => {
-          console.log("Success retrieving site.context:", res.data);
-
-           const context: SiteContext = {
-            siteName: res.data?.siteName ?? "",
-            siteId: res.data?.siteId ?? "",
-          };
-          setSiteContext(context);
-        })
-        .catch((error) => {
-          console.error("Error retrieving site.context:", error);
-        });
-    } else if (error) {
-      console.error("Error initializing Marketplace client:", error);
+    if (isInitialized && client) {
+      client.getValue()
+        .then((val: string) => setValue(val || ""))
+        .catch(err => console.error("Error retrieving value:", err));
     }
-  }, [client, error, isInitialized]);
+  }, [client, isInitialized]);
+
+  const handleClick = (selected: string) => {
+    setValue(selected);
+    if (client) client.setValue(selected);
+  };
 
   return (
-    <>
-      <h1>Custom Field Extension</h1>
-      {isInitialized && siteContext ? (
-        <>
-          <p>
-            <strong>Site Name:</strong> {siteContext.siteName}
-          </p>
-          <p>
-            <strong>Site ID:</strong> {siteContext.siteId}
-          </p>
-        </>
+    <div style={{ padding: "10px" }}>
+      <h3>Select an option:</h3>
+      {isInitialized ? (
+        <div style={{ display: "flex", gap: "10px" }}>
+          {options.map(opt => (
+            <button
+              key={opt}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: value === opt ? "#0078d4" : "#eee",
+                color: value === opt ? "#fff" : "#000",
+                border: "none",
+                cursor: "pointer",
+                borderRadius: "4px"
+              }}
+              onClick={() => handleClick(opt)}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
       ) : (
-        <p>No site context available yet.</p>
+        <p>Initializing extension...</p>
       )}
-    </>
+      {error && <p style={{ color: "red" }}>Error: {String(error)}</p>}
+    </div>
   );
 }
 
