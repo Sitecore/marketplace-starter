@@ -68,12 +68,12 @@ Note: You cannot access extension point routes directly in the browser (e.g., lo
 
 
 1. Create Your Own Repository:
-- You can either fork this repository or create a new template based on it.
-- This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
+  - You can either fork this repository or create a new template based on it.
+  - This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
 
 2. Remove the endpoints you dont require
-- Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
-- Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
+  - Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
+  - Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
 
 3. Install dependencies:
    ```sh
