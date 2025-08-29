@@ -4,33 +4,6 @@ This project is the starter template for building Sitecore Marketplace extension
 
 ---
 
-## Project Structure
-
-```
-xmcloud-marketplace-starter/
-├── pages/
-│   ├── custom-field-extension/
-│   │   └── index.tsx
-│   ├── dashboard-widget-extension/
-│   │   └── index.tsx
-│   ├── fullscreen-extension/
-│   │   └── index.tsx
-│   ├── pages-contextpanel-extension/
-│   │   └── index.tsx
-│   └── standalone-extension/
-│       └── index.tsx
-├── utils/
-│   └── hooks/
-│       └── useMarketplaceClient.ts
-├── public/
-├── package.json
-├── tsconfig.json
-├── next.config.js
-└── ...
-```
-
----
-
 ## Extension Points
 
 ### 1. Custom Field Extension
@@ -44,9 +17,6 @@ xmcloud-marketplace-starter/
   - On selection, updates the field value using client.setValue(selected) and closes the app after a short delay.
   - Displays loading and error states for better user feedback.
 
-
-![Custom Field Extension Screenshot](./public/screenshots/custom-field.png)
-
 ---
 
 ### 2. Dashboard Widget Extension
@@ -58,8 +28,6 @@ xmcloud-marketplace-starter/
   - Shows relevant dashboard information or actions.
   - Handles loading and error states.
 
-![Dashboard Widget Extension Screenshot](./public/screenshots/)
-
 ---
 
 ### 3. Fullscreen Extension
@@ -70,8 +38,6 @@ xmcloud-marketplace-starter/
   - Initializes the Marketplace SDK client.
   - Renders content in fullscreen mode.
   - Handles loading and error states.
-
-![Fullscreen Extension Screenshot](./public/screenshots/fullscreen.png)
 
 ---
 
@@ -85,8 +51,6 @@ xmcloud-marketplace-starter/
   - Shows page ID, title, language, and path.
   - Handles loading and error states.
 
-![Pages Context Panel Extension Screenshot](./public/screenshots/pages-context-panel.png)
-
 ---
 
 ### 5. Standalone Extension
@@ -97,7 +61,6 @@ xmcloud-marketplace-starter/
   - Initializes the Marketplace SDK client.
   - Can be used for custom tools or utilities.
   - Handles loading and error states.
-![Custom Field Extension Screenshot](./public/screenshots/standalone.png)
 
 ---
 
