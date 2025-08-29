@@ -62,52 +62,27 @@ This project is the starter template for building Sitecore Marketplace extension
   - Can be used for custom tools or utilities.
   - Handles loading and error states.
 
----
-
-## Access Extension Points
-
-- **You cannot access extension point routes directly in the browser (e.g., localhost:3000/...). These routes must be invoked within the Sitecore XM Cloud environment through the configured extension points.To learn how to properly configure and hook up your app to extension points, refer to the official Sitecore documentation:**  
-  - (https://doc.sitecore.com/mp/en/developers/marketplace/extension-points.html)
----
-
-## Shared Utilities
-
-- **Marketplace Client Hook:**  
-  - Location: `src/utils/hooks/useMarketplaceClient.ts`
-  - Provides a reusable React hook for initializing and interacting with the Sitecore Marketplace SDK client.
-  - Handles initialization, error, and loading states.
-
----
-
 ## Getting Started
 
-1. **Install dependencies:**
+Note: You cannot access extension point routes directly in the browser (e.g., localhost:3000/...). These routes must be invoked within the Sitecore XM Cloud environment through the configured extension points.To learn how to properly configure and hook up your app to extension points, refer to the official [Sitecore Marketplace documentation](https://doc.sitecore.com/mp/en/developers/marketplace/extension-points.html)
+
+
+1. Create Your Own Repository:
+- You can either fork this repository or create a new template based on it.
+- This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
+
+2. Install dependencies:
    ```sh
    npm install
    ```
 
-2. **Run the development server:**
+3. Run the development server:
    ```sh
    npm run dev
    ```
----
 
-## How to Use
-1. **Create Your Own Repository:**
-- You can either fork this repository or create a new template based on it.
-- This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
-
-
-2. **Customize Your Module:**
+3. Remove the endpoints you dont require
 - Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
 - Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
 
-
-3. **Structure Overview:**
-- The app uses the Sitecore Marketplace SDK and is designed to run inside an iframe provided by XM Cloud Marketplace for full functionality.
-- Shared hooks and utilities are located in `src/utils/hooks`.
-- You can add more extension points by creating new folders inside `pages`.
-- Each folder in `pages` becomes a route, and each `.tsx` file inside those folders becomes a sub-route.
-
-
----
+4. Install the application and test in the different extension points by following the [Sitecore documentation](https://doc.sitecore.com/mp/en/developers/marketplace/introduction-to-sitecore-marketplace.html)
