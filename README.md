@@ -1,4 +1,4 @@
-# 🏪 Sitecore Marketplace Starter
+# Sitecore Marketplace Starter
 
 This project is the starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
 
@@ -71,18 +71,18 @@ Note: You cannot access extension point routes directly in the browser (e.g., lo
 - You can either fork this repository or create a new template based on it.
 - This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
 
-2. Install dependencies:
+2. Remove the endpoints you dont require
+- Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
+- Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
+
+3. Install dependencies:
    ```sh
    npm install
    ```
 
-3. Run the development server:
+4. Run the development server:
    ```sh
    npm run dev
    ```
 
-3. Remove the endpoints you dont require
-- Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
-- Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
-
-4. Install the application and test in the different extension points by following the [Sitecore documentation](https://doc.sitecore.com/mp/en/developers/marketplace/introduction-to-sitecore-marketplace.html)
+5. Install the application and test in the different extension points by following the [Sitecore documentation](https://doc.sitecore.com/mp/en/developers/marketplace/introduction-to-sitecore-marketplace.html)
