@@ -2,20 +2,15 @@
 
 This project is the starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
 
----
-
 ## 🧩 Extension Points
 
 ### 1. Custom Field Extension
 
 - **Location:** `pages/custom-field-extension/index.tsx`
 - **Description:**  
-  Provides a button-based UI for selecting preset options in Sitecore XM Cloud custom fields.
-  - Initializes the Marketplace SDK client using a custom hook.
-  - Fetches the current field value with client.getValue() and displays it.
-  - Presents predefined options as buttons (Option A, Option B, Option C).
-  - On selection, updates the field value using client.setValue(selected) and closes the app after a short delay.
-  - Displays loading and error states for better user feedback.
+  Provides a button-based UI for selecting preset options to showcase how to update field values.
+  - Initializes the Marketplace SDK client.
+  - On button click,, updates the field value using client.setValue(selected) and closes the app after a short delay.
 
 ---
 
@@ -25,8 +20,7 @@ This project is the starter template for building Sitecore Marketplace extension
 - **Description:**  
   Displays a widget in the XM Cloud dashboard.
   - Initializes the Marketplace SDK client.
-  - Shows relevant dashboard information or actions.
-  - Handles loading and error states.
+  - Displays sample dashboard information.
 
 ---
 
@@ -34,10 +28,9 @@ This project is the starter template for building Sitecore Marketplace extension
 
 - **Location:** `pages/fullscreen-extension/index.tsx`
 - **Description:**  
-  Provides a fullscreen experience for advanced extension scenarios.
+  Provides a fullscreen experience to be rendered in the Pages application.
   - Initializes the Marketplace SDK client.
-  - Renders content in fullscreen mode.
-  - Handles loading and error states.
+  - Displays sample dashboard information.
 
 ---
 
@@ -47,9 +40,9 @@ This project is the starter template for building Sitecore Marketplace extension
 - **Description:**  
   Displays context information about the current page in the XM Cloud Pages editor.
   - Initializes the Marketplace SDK client.
-  - Subscribes to `pages.context` using the SDK.
+  - Subscribes to `pages.context` using the SDK to handle events.
   - Shows page ID, title, language, and path.
-  - Handles loading and error states.
+  - Updates data automatically as the user changes selected page.
 
 ---
 
@@ -59,10 +52,9 @@ This project is the starter template for building Sitecore Marketplace extension
 - **Description:**  
   Runs as a standalone app outside of other extension points.
   - Initializes the Marketplace SDK client.
-  - Can be used for custom tools or utilities.
-  - Handles loading and error states.
+  - Displays sample dashboard information.
 
-## 📦 Getting Started
+# 📦 Getting Started
 
 Note: You cannot access extension point routes directly in the browser (e.g., localhost:3000/...). These routes must be invoked within the Sitecore XM Cloud environment through the configured extension points.To learn how to properly configure and hook up your app to extension points, refer to the official [Sitecore Marketplace documentation](https://doc.sitecore.com/mp/en/developers/marketplace/extension-points.html)
 
