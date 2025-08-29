@@ -1,6 +1,6 @@
-# XM Cloud Marketplace Extension Starter
+# Sitecore Marketplace Starter
 
-This project is a Next.js starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
+This project is the starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
 
 ---
 
@@ -19,10 +19,9 @@ xmcloud-marketplace-starter/
 │   │   └── index.tsx
 │   └── standalone-extension/
 │       └── index.tsx
-├── src/
-│   └── utils/
-│       └── hooks/
-│           └── useMarketplaceClient.ts
+├── utils/
+│   └── hooks/
+│       └── useMarketplaceClient.ts
 ├── public/
 ├── package.json
 ├── tsconfig.json
