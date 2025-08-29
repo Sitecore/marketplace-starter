@@ -1,10 +1,10 @@
-# Sitecore Marketplace Starter
+# 🏪 Sitecore Marketplace Starter
 
 This project is the starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
 
 ---
 
-## Extension Points
+## 🧩 Extension Points
 
 ### 1. Custom Field Extension
 
@@ -62,7 +62,7 @@ This project is the starter template for building Sitecore Marketplace extension
   - Can be used for custom tools or utilities.
   - Handles loading and error states.
 
-## Getting Started
+## 📦 Getting Started
 
 Note: You cannot access extension point routes directly in the browser (e.g., localhost:3000/...). These routes must be invoked within the Sitecore XM Cloud environment through the configured extension points.To learn how to properly configure and hook up your app to extension points, refer to the official [Sitecore Marketplace documentation](https://doc.sitecore.com/mp/en/developers/marketplace/extension-points.html)
 
@@ -86,3 +86,11 @@ Note: You cannot access extension point routes directly in the browser (e.g., lo
    ```
 
 5. Install the application and test in the different extension points by following the [Sitecore documentation](https://doc.sitecore.com/mp/en/developers/marketplace/introduction-to-sitecore-marketplace.html)
+
+## 📝 License
+
+This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
+
+## 🐛 Issues
+
+If you encounter any issues or have suggestions for improvements, please open an issue on the repository.
