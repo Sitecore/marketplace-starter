@@ -1,6 +1,6 @@
 # XM Cloud Marketplace Extension Starter
 
-This project is a Next.js starter template for building Sitecore XM Cloud Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
+This project is a Next.js starter template for building Sitecore Marketplace extensions. It demonstrates five extension points: **Custom Field**, **Dashboard Widget**, **Fullscreen**, **Pages Context Panel**, and **Standalone**. Each extension point has its own UI and integration with the Sitecore Marketplace SDK.
 
 ---
 
@@ -37,13 +37,13 @@ xmcloud-marketplace-starter/
 ### 1. Custom Field Extension
 
 - **Location:** `pages/custom-field-extension/index.tsx`
-- **URL:** [http://localhost:3000/custom-field-extension](http://localhost:3000/custom-field-extension)
 - **Description:**  
-  Provides a color picker UI for Sitecore XM Cloud custom fields.
-  - Initializes the Marketplace SDK client.
-  - Fetches the current field value using `client.getValue()`.
-  - Lets users select a color and saves it using `client.setValue(newColor)`.
-  - Displays loading and error states.
+  Provides a button-based UI for selecting preset options in Sitecore XM Cloud custom fields.
+  - Initializes the Marketplace SDK client using a custom hook.
+  - Fetches the current field value with client.getValue() and displays it.
+  - Presents predefined options as buttons (Option A, Option B, Option C).
+  - On selection, updates the field value using client.setValue(selected) and closes the app after a short delay.
+  - Displays loading and error states for better user feedback.
 
 
 ![Custom Field Extension Screenshot](./public/screenshots/custom-field.png)
@@ -53,7 +53,6 @@ xmcloud-marketplace-starter/
 ### 2. Dashboard Widget Extension
 
 - **Location:** `pages/dashboard-widget-extension/index.tsx`
-- **URL:** [http://localhost:3000/dashboard-widget-extension](http://localhost:3000/dashboard-widget-extension)
 - **Description:**  
   Displays a widget in the XM Cloud dashboard.
   - Initializes the Marketplace SDK client.
@@ -67,7 +66,6 @@ xmcloud-marketplace-starter/
 ### 3. Fullscreen Extension
 
 - **Location:** `pages/fullscreen-extension/index.tsx`
-- **URL:** [http://localhost:3000/fullscreen-extension](http://localhost:3000/fullscreen-extension)
 - **Description:**  
   Provides a fullscreen experience for advanced extension scenarios.
   - Initializes the Marketplace SDK client.
@@ -81,7 +79,6 @@ xmcloud-marketplace-starter/
 ### 4. Pages Context Panel Extension
 
 - **Location:** `pages/pages-contextpanel-extension/index.tsx`
-- **URL:** [http://localhost:3000/pages-contextpanel-extension](http://localhost:3000/pages-contextpanel-extension)
 - **Description:**  
   Displays context information about the current page in the XM Cloud Pages editor.
   - Initializes the Marketplace SDK client.
@@ -96,7 +93,6 @@ xmcloud-marketplace-starter/
 ### 5. Standalone Extension
 
 - **Location:** `pages/standalone-extension/index.tsx`
-- **URL:** [http://localhost:3000/standalone-extension](http://localhost:3000/standalone-extension)
 - **Description:**  
   Runs as a standalone app outside of other extension points.
   - Initializes the Marketplace SDK client.
@@ -104,6 +100,12 @@ xmcloud-marketplace-starter/
   - Handles loading and error states.
 ![Custom Field Extension Screenshot](./public/screenshots/standalone.png)
 
+---
+
+## Access Extension Points
+
+- **You cannot access extension point routes directly in the browser (e.g., localhost:3000/...). These routes must be invoked within the Sitecore XM Cloud environment through the configured extension points.To learn how to properly configure and hook up your app to extension points, refer to the official Sitecore documentation:**  
+  - (https://doc.sitecore.com/mp/en/developers/marketplace/extension-points.html)
 ---
 
 ## Shared Utilities
@@ -126,21 +128,24 @@ xmcloud-marketplace-starter/
    ```sh
    npm run dev
    ```
-
-3. **Access extension points in your browser:**
-   - [http://localhost:3000/custom-field-extension](http://localhost:3000/custom-field-extension)
-   - [http://localhost:3000/dashboard-widget-extension](http://localhost:3000/dashboard-widget-extension)
-   - [http://localhost:3000/fullscreen-extension](http://localhost:3000/fullscreen-extension)
-   - [http://localhost:3000/pages-contextpanel-extension](http://localhost:3000/pages-contextpanel-extension)
-   - [http://localhost:3000/standalone-extension](http://localhost:3000/standalone-extension)
-
 ---
 
-## Notes
+## How to Use
+1. **Create Your Own Repository:**
+- You can either fork this repository or create a new template based on it.
+- This gives you a clean starting point with all the necessary scaffolding for Marketplace extension development.
 
+
+2. **Customize Your Module:**
+- Remove any extension points you don’t plan to support by deleting their respective folders inside the pages directory.
+- Each folder in pages corresponds to a specific extension point (e.g., custom-field-extension, dashboard-widget-extension, etc.).
+
+
+3. **Structure Overview:**
 - The app uses the Sitecore Marketplace SDK and is designed to run inside an iframe provided by XM Cloud Marketplace for full functionality.
 - Shared hooks and utilities are located in `src/utils/hooks`.
 - You can add more extension points by creating new folders inside `pages`.
 - Each folder in `pages` becomes a route, and each `.tsx` file inside those folders becomes a sub-route.
+
 
 ---

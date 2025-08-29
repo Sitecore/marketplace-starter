@@ -19,6 +19,7 @@ function CustomFieldExtension() {
   const handleClick = (selected: string) => {
     setValue(selected);
     if (client) client.setValue(selected);
+    setTimeout(() => client?.closeApp(), 1000);
   };
 
   return (
